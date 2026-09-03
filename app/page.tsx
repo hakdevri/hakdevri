@@ -131,6 +131,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#f5f5f7] text-[#111]">
 
+      {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
         <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-5">
 
@@ -142,11 +143,13 @@ export default function HomePage() {
           </a>
 
           <nav className="hidden items-center gap-8 text-[13px] md:flex">
+
+            {/* PAZARYERİ */}
             <a
               href="/discover"
-              className="text-black/55 transition hover:text-black"
+              className="font-medium text-black transition hover:text-black/60"
             >
-              Keşfet
+              Pazaryeri
             </a>
 
             <a
@@ -183,11 +186,20 @@ export default function HomePage() {
           </nav>
 
           <div className="flex items-center gap-2">
+
             {user ? (
               <>
+                {/* GİRİŞ YAPMIŞ KULLANICI - PAZARYERİ */}
+                <a
+                  href="/discover"
+                  className="hidden rounded-full border border-black/10 bg-white px-5 py-2.5 text-[13px] font-medium transition hover:bg-black/5 sm:block"
+                >
+                  Pazaryeri
+                </a>
+
                 <a
                   href="/transfers"
-                  className="hidden rounded-full bg-black px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-black/80 sm:block"
+                  className="hidden rounded-full bg-black px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-black/80 md:block"
                 >
                   İlan Ver
                 </a>
@@ -224,10 +236,12 @@ export default function HomePage() {
                 </a>
               </>
             )}
+
           </div>
         </div>
       </header>
 
+      {/* HERO */}
       <section className="relative overflow-hidden px-5 pb-24 pt-20 md:pb-32 md:pt-32">
 
         <div className="absolute left-1/2 top-[-200px] -z-0 h-[700px] w-[1000px] -translate-x-1/2 rounded-full bg-white blur-3xl" />
@@ -258,11 +272,12 @@ export default function HomePage() {
 
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
 
+              {/* ANA PAZARYERİ BUTONU */}
               <a
                 href="/discover"
                 className="rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:bg-black/80"
               >
-                Hakları Keşfet
+                Pazaryerini Keşfet →
               </a>
 
               <a
@@ -275,6 +290,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* MARKETPLACE HERO */}
           <div className="mx-auto mt-20 max-w-6xl">
 
             <div className="overflow-hidden rounded-[34px] border border-black/[0.08] bg-white p-2 shadow-[0_40px_120px_rgba(0,0,0,0.12)]">
@@ -358,6 +374,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* NEDEN HAKDEVRİ */}
       <section
         id="neden-hakdevri"
         className="border-y border-black/[0.07] bg-white px-5 py-24 md:py-32"
@@ -434,6 +451,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* KATEGORİLER */}
       <section className="px-5 py-24 md:py-32">
 
         <div className="mx-auto max-w-7xl">
@@ -512,6 +530,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* NASIL ÇALIŞIR */}
       <section
         id="nasil-calisir"
         className="border-y border-black/[0.07] bg-white px-5 py-24 md:py-32"
@@ -571,6 +590,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* DİJİTAL PANEL */}
       <section className="bg-[#f5f5f7] px-5 py-24 md:py-32">
 
         <div className="mx-auto max-w-7xl">
@@ -676,9 +696,12 @@ export default function HomePage() {
                       Son işlemler
                     </p>
 
-                    <span className="text-xs text-black/35">
+                    <a
+                      href="/transactions"
+                      className="text-xs text-black/35 transition hover:text-black"
+                    >
                       Tümünü gör →
-                    </span>
+                    </a>
 
                   </div>
 
@@ -733,6 +756,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="bg-black px-5 py-28 text-white md:py-36">
 
         <div className="mx-auto max-w-5xl text-center">
@@ -758,7 +782,7 @@ export default function HomePage() {
               href="/discover"
               className="rounded-full bg-white px-8 py-4 text-sm font-medium text-black transition hover:bg-white/90"
             >
-              Hakları Keşfet
+              Pazaryerini Keşfet →
             </a>
 
             <a
@@ -774,6 +798,7 @@ export default function HomePage() {
 
       </section>
 
+      {/* FOOTER */}
       <footer className="bg-black px-5 pb-10 text-white">
 
         <div className="mx-auto max-w-7xl border-t border-white/10 pt-8">
@@ -795,17 +820,25 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-x-8 gap-y-3 text-xs text-white/35">
 
               <a href="/discover" className="hover:text-white">
-                Keşfet
+                Pazaryeri
               </a>
 
               <a href="#nasil-calisir" className="hover:text-white">
                 Nasıl Çalışır?
               </a>
 
+              <a href="#neden-hakdevri" className="hover:text-white">
+                Neden HakDevri?
+              </a>
+
               {user && (
                 <>
                   <a href="/transfers" className="hover:text-white">
                     İlan Ver
+                  </a>
+
+                  <a href="/my-requests" className="hover:text-white">
+                    Taleplerim
                   </a>
 
                   <a href="/transactions" className="hover:text-white">
