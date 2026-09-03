@@ -78,6 +78,7 @@ const steps = [
 export default function HomePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     checkUser();
@@ -120,6 +121,10 @@ export default function HomePage() {
     window.location.href = "/";
   }
 
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+  }
+
   if (loading) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#f5f5f7]">
@@ -132,19 +137,21 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#f5f5f7] text-[#111]">
 
       {/* HEADER */}
-      <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-5">
 
+          {/* LOGO */}
           <a
             href="/"
+            onClick={closeMobileMenu}
             className="text-[22px] font-semibold tracking-[-0.07em]"
           >
             HAK<span className="font-normal">DEVRİ</span>
           </a>
 
+          {/* DESKTOP MENU */}
           <nav className="hidden items-center gap-8 text-[13px] md:flex">
 
-            {/* PAZARYERİ */}
             <a
               href="/discover"
               className="font-medium text-black transition hover:text-black/60"
@@ -185,21 +192,21 @@ export default function HomePage() {
             )}
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* DESKTOP RIGHT SIDE */}
+          <div className="hidden items-center gap-2 md:flex">
 
             {user ? (
               <>
-                {/* GİRİŞ YAPMIŞ KULLANICI - PAZARYERİ */}
                 <a
                   href="/discover"
-                  className="hidden rounded-full border border-black/10 bg-white px-5 py-2.5 text-[13px] font-medium transition hover:bg-black/5 sm:block"
+                  className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-[13px] font-medium transition hover:bg-black/5"
                 >
                   Pazaryeri
                 </a>
 
                 <a
                   href="/transfers"
-                  className="hidden rounded-full bg-black px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-black/80 md:block"
+                  className="rounded-full bg-black px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-black/80"
                 >
                   İlan Ver
                 </a>
@@ -214,7 +221,7 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={logout}
-                  className="hidden px-2 text-[13px] text-black/40 hover:text-black lg:block"
+                  className="px-2 text-[13px] text-black/40 hover:text-black"
                 >
                   Çıkış
                 </button>
@@ -223,7 +230,7 @@ export default function HomePage() {
               <>
                 <a
                   href="/auth"
-                  className="hidden px-3 text-[13px] font-medium text-black/55 hover:text-black sm:block"
+                  className="px-3 text-[13px] font-medium text-black/55 hover:text-black"
                 >
                   Giriş Yap
                 </a>
@@ -238,7 +245,139 @@ export default function HomePage() {
             )}
 
           </div>
+
+          {/* MOBILE HEADER */}
+          <div className="flex items-center gap-2 md:hidden">
+
+            {user && (
+              <a
+                href="/profile"
+                className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-[13px] font-medium"
+              >
+                Profil
+              </a>
+            )}
+
+            {!user && (
+              <a
+                href="/auth"
+                className="rounded-full bg-black px-4 py-2.5 text-[12px] font-medium text-white"
+              >
+                Giriş Yap
+              </a>
+            )}
+
+            {/* HAMBURGER */}
+            <button
+              type="button"
+              aria-label="Menüyü aç"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white"
+            >
+              <div className="flex w-5 flex-col gap-1.5">
+                <span
+                  className={`block h-[1.5px] w-full bg-black transition ${
+                    mobileMenuOpen ? "translate-y-[4px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`block h-[1.5px] w-full bg-black transition ${
+                    mobileMenuOpen ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`block h-[1.5px] w-full bg-black transition ${
+                    mobileMenuOpen ? "-translate-y-[4px] -rotate-45" : ""
+                  }`}
+                />
+              </div>
+            </button>
+
+          </div>
         </div>
+
+        {/* MOBILE MENU */}
+        {mobileMenuOpen && (
+          <div className="border-t border-black/[0.06] bg-white px-5 pb-6 pt-3 md:hidden">
+
+            <nav className="flex flex-col">
+
+              {/* PAZARYERİ */}
+              <a
+                href="/discover"
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between border-b border-black/[0.06] py-4 text-base font-semibold"
+              >
+                <span>Pazaryeri</span>
+                <span className="text-black/30">→</span>
+              </a>
+
+              {/* NASIL ÇALIŞIR */}
+              <a
+                href="#nasil-calisir"
+                onClick={closeMobileMenu}
+                className="border-b border-black/[0.06] py-4 text-base text-black/65"
+              >
+                Nasıl Çalışır?
+              </a>
+
+              {/* NEDEN HAKDEVRİ */}
+              <a
+                href="#neden-hakdevri"
+                onClick={closeMobileMenu}
+                className="border-b border-black/[0.06] py-4 text-base text-black/65"
+              >
+                Neden HakDevri?
+              </a>
+
+              {user ? (
+                <>
+                  <a
+                    href="/my-requests"
+                    onClick={closeMobileMenu}
+                    className="border-b border-black/[0.06] py-4 text-base text-black/65"
+                  >
+                    Taleplerim
+                  </a>
+
+                  <a
+                    href="/transactions"
+                    onClick={closeMobileMenu}
+                    className="border-b border-black/[0.06] py-4 text-base text-black/65"
+                  >
+                    İşlemlerim
+                  </a>
+
+                  <a
+                    href="/transfers"
+                    onClick={closeMobileMenu}
+                    className="mt-4 rounded-full bg-black px-5 py-3.5 text-center text-sm font-medium text-white"
+                  >
+                    İlan Ver
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="mt-3 py-3 text-center text-sm text-black/45"
+                  >
+                    Çıkış Yap
+                  </button>
+                </>
+              ) : (
+                <a
+                  href="/auth"
+                  onClick={closeMobileMenu}
+                  className="mt-4 rounded-full bg-black px-5 py-3.5 text-center text-sm font-medium text-white"
+                >
+                  Ücretsiz Başla
+                </a>
+              )}
+
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
@@ -272,7 +411,6 @@ export default function HomePage() {
 
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
 
-              {/* ANA PAZARYERİ BUTONU */}
               <a
                 href="/discover"
                 className="rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:bg-black/80"
