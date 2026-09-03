@@ -44,9 +44,11 @@ export default function TransfersPage() {
 
     if (result.error) {
       console.error(result.error);
+
       setMessage(
         "Devir ilanları yüklenirken bir hata oluştu."
       );
+
       setLoading(false);
       return;
     }
@@ -85,7 +87,7 @@ export default function TransfersPage() {
     }
 
     if (status === "cancelled") {
-      return "İptal";
+      return "Yayından Kaldırıldı";
     }
 
     return status;
@@ -124,14 +126,14 @@ export default function TransfersPage() {
 
             <a
               href="/rights"
-              className="rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-medium"
+              className="rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-medium transition hover:bg-black/[0.03]"
             >
               Haklarım
             </a>
 
             <a
               href="/profile"
-              className="hidden rounded-xl bg-black px-4 py-2.5 text-sm font-medium sm:block"
+              className="rounded-xl bg-black px-4 py-2.5 text-sm font-medium text-white transition hover:bg-black/80"
             >
               Profilim
             </a>
@@ -161,7 +163,7 @@ export default function TransfersPage() {
 
             </div>
 
-            <div className="rounded-2xl border border-black/10 bg-white px-5 py-4">
+            <div className="rounded-2xl border border-black/10 bg-white px-5 py-4 shadow-sm">
 
               <p className="text-xs text-black/40">
                 Toplam İlan
@@ -188,7 +190,7 @@ export default function TransfersPage() {
         )}
 
         {!loading && message && (
-          <div className="rounded-3xl border border-red-200 bg-white p-10 text-center">
+          <div className="mb-6 rounded-3xl border border-red-200 bg-white p-6">
 
             <p className="text-sm text-red-600">
               {message}
@@ -208,9 +210,9 @@ export default function TransfersPage() {
         {!loading &&
           !message &&
           transfers.length === 0 && (
-            <div className="rounded-3xl border border-black/10 bg-white p-10 text-center">
+            <div className="rounded-3xl border border-black/10 bg-white p-10 text-center shadow-[0_15px_45px_rgba(0,0,0,0.04)]">
 
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f7f7f5] text-lg">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f7f7f5] text-xl">
                 +
               </div>
 
@@ -225,7 +227,7 @@ export default function TransfersPage() {
 
               <a
                 href="/rights/transfer"
-                className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-sm font-medium text-white"
+                className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:bg-black/80"
               >
                 Hak Devret
               </a>
@@ -246,7 +248,7 @@ export default function TransfersPage() {
 
                   <div className="flex items-start justify-between gap-4">
 
-                    <div>
+                    <div className="min-w-0">
 
                       <p className="text-xs font-medium tracking-wide text-black/35">
                         DEVİR İLANI
@@ -259,7 +261,7 @@ export default function TransfersPage() {
                     </div>
 
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(
+                      className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(
                         transfer.status
                       )}`}
                     >
@@ -302,14 +304,12 @@ export default function TransfersPage() {
 
                   </div>
 
-                  {transfer.status === "listed" && (
-                    <button
-                      type="button"
-                      className="mt-5 w-full rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-medium transition hover:bg-black hover:text-white"
-                    >
-                      İlanı Yönet
-                    </button>
-                  )}
+                  <a
+                    href={"/transfers/" + transfer.id}
+                    className="mt-5 block w-full rounded-xl bg-black px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-black/80"
+                  >
+                    İlanı Yönet
+                  </a>
 
                 </article>
               ))}
@@ -317,13 +317,20 @@ export default function TransfersPage() {
             </div>
           )}
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
           <a
             href="/rights/transfer"
-            className="inline-block rounded-xl bg-black px-5 py-3 text-sm font-medium text-white"
+            className="inline-block rounded-xl bg-black px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-black/80"
           >
             + Yeni Devir İlanı
+          </a>
+
+          <a
+            href="/"
+            className="inline-block rounded-xl border border-black/10 bg-white px-5 py-3 text-center text-sm font-medium transition hover:bg-black/[0.03]"
+          >
+            Pazaryerine Git
           </a>
 
         </div>
